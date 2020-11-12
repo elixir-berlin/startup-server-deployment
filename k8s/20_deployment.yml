@@ -1,0 +1,35 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: extreme-startup
+  namespace: extreme-startup
+spec:
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: extreme-startup
+  template:
+    metadata:
+      labels:
+        app: extreme-startup
+    spec:
+      containers:
+      - name: extreme-startup
+        image: elixirberlin/extreme_startup:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "0.7"
+            memory: "600M"
+          requests:
+            cpu: "0.65"
+            memory: "400M"
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+        envFrom:
+          - configMapRef:
+              name: extreme-startup-config

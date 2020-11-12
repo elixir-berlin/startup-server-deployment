@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: extreme-startup
+  namespace: extreme-startup
+spec:
+  selector:
+    app: extreme-startup
+  ports:
+  - name: extreme-startup
+    port: 80
+    targetPort: 3000
